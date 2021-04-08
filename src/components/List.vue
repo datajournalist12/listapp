@@ -20,11 +20,9 @@ export default {
     computed: {
         ...mapGetters(['returnList'])
     },
-    actions: {
-        ...mapActions(['getData'])
-    },
     methods: {
         ...mapMutations(['addToArray', 'deleteFromArray']),
+        ...mapActions(['getData'])
     },
     created: function () {
         console.log("Hello world");
