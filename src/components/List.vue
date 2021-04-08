@@ -10,17 +10,25 @@
         <input v-model="inputValue" placeholder="New item...">
     </div>
     <button @click='addToArray(inputValue)'>Add Item</button>
+    <button @click='getData()'>Make API call</button>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
     computed: {
         ...mapGetters(['returnList'])
     },
+    actions: {
+        ...mapActions(['getData'])
+    },
     methods: {
         ...mapMutations(['addToArray', 'deleteFromArray']),
+    },
+    created: function () {
+        console.log("Hello world");
+        this.getData;
     }
 }
 </script>
