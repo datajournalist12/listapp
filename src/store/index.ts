@@ -1,9 +1,14 @@
 import { createStore } from 'vuex'
 import axios from "axios"
+import { ApiResult } from "../interfaces/interface"
 
 export default createStore({
   state: {
-      groceryList: ['Hello', 'World']
+      groceryList: ['Hello', 'World'],
+      urls: {
+        front: "https://api.openbrewerydb.org/breweries?by_state=",
+        back: "&sort=type,-name"
+      }
   },
   mutations: {
     addToArray(state, payload) {
@@ -14,10 +19,10 @@ export default createStore({
     },
   },
   actions: {
-    async getData() {
-      axios.get('https://api.openbrewerydb.org/breweries?by_state=missouri&sort=type,-name')
-      .then(resp => {console.log(resp)});
-  }
+    async getData(context, usState) {
+      axios.get(context.state.urls.front + usState + context.state.urls.back)
+      .then(resp => {resp.data.forEach((element: ApiResult) => context.commit('addToArray', element.name))});
+   }
   },
   getters: {
     returnList(state) {
